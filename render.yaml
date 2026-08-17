@@ -1,0 +1,24 @@
+# Render Blueprint for the Assignment Portal.
+#
+# Using this file (via "New +" -> "Blueprint" on Render, pointed at your
+# GitHub repo) creates both the web service AND the Postgres database in
+# one go, and automatically wires DATABASE_URL into the web service's
+# environment — no manual copy-pasting of DB credentials needed.
+
+databases:
+  - name: assignment-portal-db
+    plan: free
+    databaseName: assignment_db
+    user: assignment_user
+
+services:
+  - type: web
+    name: assignment-portal
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: assignment-portal-db
+          property: connectionString
