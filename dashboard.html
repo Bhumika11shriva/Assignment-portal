@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard — Assignment Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="dashboard">
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="topbar-nav" id="topbarNav">
+           <a href="dashboard.html" class="nav-item" data-nav="dashboard">Dashboard</a>
+       <a href="assignments.html" class="nav-item" data-nav="assignments">Assignments</a>
+      <a href="teacher-panel.html" class="nav-item" data-nav="teacher-panel" data-role="teacher-only">Teacher Panel</a>
+      <a href="reports.html" class="nav-item" data-nav="reports">Reports</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-wrap">
+        <button class="notif-bell" id="notifBell">🔔<span class="notif-dot" id="notifDot" hidden></span></button>
+        <div class="notif-dropdown" id="notifDropdown" hidden>
+          <div class="notif-dropdown-head">Notifications</div>
+          <div class="notif-list" id="notifList"></div>
+        </div>
+      </div>
+      <span class="who" id="whoami"></span>
+      <button class="btn-ghost" id="logoutBtn">Log out</button>
+    </div>
+  </div>
+</header>
+
+<main class="dash">
+  <div class="dash-header">
+    <div>
+      <p class="eyebrow" id="dashRoleLabel">Dashboard</p>
+      <h1 id="dashWelcome">Welcome back</h1>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-value" id="statTotal">0</span>
+      <span class="stat-label">Total assignments</span>
+    </div>
+    <div class="stat-card stat-accent-navy">
+      <span class="stat-value" id="statCompleted">0</span>
+      <span class="stat-label" id="statCompletedLabel">Completed</span>
+    </div>
+    <div class="stat-card stat-accent-red">
+      <span class="stat-value" id="statPending">0</span>
+      <span class="stat-label" id="statPendingLabel">Pending</span>
+    </div>
+    <div class="stat-card stat-accent-blue">
+      <span class="stat-value" id="statUpcoming">0</span>
+      <span class="stat-label" id="statUpcomingLabel">Upcoming deadlines</span>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <h3>Overview</h3>
+      <div id="donutChart"></div>
+    </div>
+    <div class="chart-card" data-role="teacher-only">
+      <h3>Submissions per assignment</h3>
+      <div id="barChart"></div>
+    </div>
+    <div class="chart-card" data-role="student-only">
+      <h3>Your completion progress</h3>
+      <div class="progress-row" style="margin-top: 20px;">
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="padding: 4px 0 4px;">
+    <div style="padding: 16px 20px 4px;">
+      <h3 style="font-size:15px; color:var(--navy-900); font-family:'Sora',sans-serif;">Upcoming deadlines</h3>
+    </div>
+    <div id="upcomingList" style="padding: 0 20px 16px; display:flex; flex-direction:column; gap:10px;"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark small">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <p class="footer-text">Built for teachers and students to track homework, deadlines, and feedback in one place.</p>
+    <p class="footer-copy">© 2026 Assignment Portal. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

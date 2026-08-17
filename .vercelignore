@@ -1,0 +1,5 @@
+php/
+database/
+uploads/
+Dockerfile
+render.yaml

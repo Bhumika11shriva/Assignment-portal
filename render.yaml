@@ -1,0 +1,27 @@
+# Render Blueprint for the Assignment Portal backend (PHP API only).
+#
+# NOTE: Render's managed database offering is PostgreSQL only -- this app
+# uses MySQL (PDO mysql), so you need a separate MySQL host (e.g. a free
+# MySQL instance from Railway, Aiven, or Clever Cloud). Create that first,
+# then fill its credentials into the env vars below (or set them directly
+# in the Render dashboard after the service is created).
+
+services:
+  - type: web
+    name: assignment-portal-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
