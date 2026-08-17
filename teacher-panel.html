@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teacher Panel — Assignment Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="teacher-panel">
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="topbar-nav" id="topbarNav">
+      <a href="dashboard.html" class="nav-item" data-nav="dashboard">Dashboard</a>
+      <a href="assignments.html" class="nav-item" data-nav="assignments">Assignments</a>
+      <a href="teacher-panel.html" class="nav-item" data-nav="teacher-panel" data-role="teacher-only">Teacher Panel</a>
+      <a href="reports.html" class="nav-item" data-nav="reports">Reports</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-wrap">
+        <button class="notif-bell" id="notifBell">🔔<span class="notif-dot" id="notifDot" hidden></span></button>
+        <div class="notif-dropdown" id="notifDropdown" hidden>
+          <div class="notif-dropdown-head">Notifications</div>
+          <div class="notif-list" id="notifList"></div>
+        </div>
+      </div>
+      <span class="who" id="whoami"></span>
+      <button class="btn-ghost" id="logoutBtn">Log out</button>
+    </div>
+  </div>
+</header>
+
+<main class="dash">
+  <div class="dash-header">
+    <div>
+      <p class="eyebrow">Teacher desk</p>
+      <h1>Manage assignments</h1>
+    </div>
+  </div>
+
+  <!-- ============ CREATE / EDIT FORM ============ -->
+  <div class="form-card">
+    <h2 id="formMode">New assignment</h2>
+    <form id="assignmentForm">
+      <input type="hidden" id="panelAssignmentId" />
+      <div class="form-grid">
+        <label class="field">
+          <span>Title</span>
+          <input type="text" id="panelTitle" required placeholder="e.g. Chapter 4 Problem Set" />
+        </label>
+        <label class="field">
+          <span>Subject</span>
+          <input type="text" id="panelSubject" placeholder="e.g. Mathematics" />
+        </label>
+        <label class="field full">
+          <span>Description</span>
+          <textarea id="panelDescription" rows="3" placeholder="What is this assignment about?"></textarea>
+        </label>
+        <label class="field full">
+          <span>Instructions</span>
+          <textarea id="panelInstructions" rows="3" placeholder="Step-by-step instructions for students..."></textarea>
+        </label>
+        <label class="field">
+          <span>Deadline</span>
+          <input type="datetime-local" id="panelDeadline" required />
+        </label>
+        <label class="field">
+          <span>Attach a reference file (optional)</span>
+          <div class="file-drop" id="panelFileDrop">
+            <div class="file-drop-text">Click to attach a file (only used when creating)</div>
+            <input type="file" id="panelFileInput" />
+          </div>
+        </label>
+      </div>
+      <p class="error" id="panelFormError"></p>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Save assignment</button>
+        <button type="button" class="btn-secondary" id="cancelEditBtn" hidden>Cancel edit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ============ ASSIGNMENT LIST ============ -->
+  <div class="table-wrap">
+    <table class="ledger-table" id="panelTable">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Subject</th>
+          <th>Deadline</th>
+          <th>Submissions</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="panelTableBody"></tbody>
+    </table>
+    <p class="empty-state" id="panelEmpty" hidden>No assignments yet — create your first one above.</p>
+  </div>
+
+  <!-- ============ SUBMISSIONS PANEL ============ -->
+  <div class="table-wrap" id="submissionsPanel" hidden style="margin-top: 24px;">
+    <div style="padding: 16px 20px 4px;">
+      <h3 id="submissionsPanelTitle" style="font-size:15px; color:var(--navy-900); font-family:'Sora',sans-serif;">Submissions</h3>
+    </div>
+    <div id="submissionsPanelList" class="submissions-list"></div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark small">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <p class="footer-text">Built for teachers and students to track homework, deadlines, and feedback in one place.</p>
+    <p class="footer-copy">© 2026 Assignment Portal. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

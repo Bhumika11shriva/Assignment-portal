@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Assignment Portal — Sign in</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="index">
+
+<main class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-mark">A</div>
+    <h1 class="auth-title">Assignment Portal</h1>
+    <p class="auth-sub">Track homework, deadlines, and feedback in one place.</p>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Log in</button>
+      <button class="tab" data-tab="register">Register</button>
+    </div>
+
+    <form id="loginForm" class="auth-form">
+      <label class="field">
+        <span>Email</span>
+        <input type="email" id="loginEmail" required autocomplete="username" />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" id="loginPassword" required autocomplete="current-password" />
+      </label>
+      <p class="error" id="loginError"></p>
+      <button type="submit" class="btn-primary">Log in</button>
+    </form>
+
+    <form id="registerForm" class="auth-form" hidden>
+      <label class="field">
+        <span>Full name</span>
+        <input type="text" id="regName" required />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" id="regEmail" required autocomplete="username" />
+      </label>
+      <label class="field">
+        <span>Password</span>
+        <input type="password" id="regPassword" required minlength="6" autocomplete="new-password" />
+      </label>
+      <label class="field">
+        <span>I am a...</span>
+        <div class="role-picker">
+          <label class="role-opt"><input type="radio" name="role" value="student" checked /><span>Student</span></label>
+          <label class="role-opt"><input type="radio" name="role" value="teacher" /><span>Teacher</span></label>
+        </div>
+      </label>
+      <p class="error" id="registerError"></p>
+      <button type="submit" class="btn-primary">Create account</button>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark small">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <p class="footer-text">Built for teachers and students to track homework, deadlines, and feedback in one place.</p>
+    <p class="footer-copy">© 2026 Assignment Portal. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

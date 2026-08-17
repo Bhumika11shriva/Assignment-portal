@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Assignments — Assignment Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="assignments">
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="topbar-nav" id="topbarNav">
+      <a href="dashboard.html" class="nav-item" data-nav="dashboard">Dashboard</a>
+      <a href="assignments.html" class="nav-item" data-nav="assignments">Assignments</a>
+      <a href="teacher-panel.html" class="nav-item" data-nav="teacher-panel" data-role="teacher-only">Teacher Panel</a>
+      <a href="reports.html" class="nav-item" data-nav="reports">Reports</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-wrap">
+        <button class="notif-bell" id="notifBell">🔔<span class="notif-dot" id="notifDot" hidden></span></button>
+        <div class="notif-dropdown" id="notifDropdown" hidden>
+          <div class="notif-dropdown-head">Notifications</div>
+          <div class="notif-list" id="notifList"></div>
+        </div>
+      </div>
+      <span class="who" id="whoami"></span>
+      <button class="btn-ghost" id="logoutBtn">Log out</button>
+    </div>
+  </div>
+</header>
+
+<main class="dash">
+  <div class="dash-header">
+    <div>
+      <p class="eyebrow">Browse</p>
+      <h1>Assignments</h1>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by title or subject..." />
+    </div>
+    <select class="filter-select" id="subjectFilter">
+      <option value="">All subjects</option>
+    </select>
+    <select class="filter-select" id="statusFilter">
+      <option value="">All statuses</option>
+      <option value="pending">Not submitted</option>
+      <option value="submitted">Submitted</option>
+      <option value="reviewed">Reviewed</option>
+      <option value="no-submissions">No submissions (teacher)</option>
+      <option value="in-progress">In progress (teacher)</option>
+    </select>
+  </div>
+
+  <div class="cards-grid" id="assignmentsList"></div>
+  <p class="empty-state" id="assignmentsEmpty" hidden>No assignments match your search.</p>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark small">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <p class="footer-text">Built for teachers and students to track homework, deadlines, and feedback in one place.</p>
+    <p class="footer-copy">© 2026 Assignment Portal. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Submit Assignment — Assignment Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="submit-assignment">
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="topbar-nav" id="topbarNav">
+      <a href="dashboard.html" class="nav-item" data-nav="dashboard">Dashboard</a>
+      <a href="assignments.html" class="nav-item" data-nav="assignments">Assignments</a>
+      <a href="reports.html" class="nav-item" data-nav="reports">Reports</a>
+    </nav>
+    <div class="topbar-right">
+      <div class="notif-wrap">
+        <button class="notif-bell" id="notifBell">🔔<span class="notif-dot" id="notifDot" hidden></span></button>
+        <div class="notif-dropdown" id="notifDropdown" hidden>
+          <div class="notif-dropdown-head">Notifications</div>
+          <div class="notif-list" id="notifList"></div>
+        </div>
+      </div>
+      <span class="who" id="whoami"></span>
+      <button class="btn-ghost" id="logoutBtn">Log out</button>
+    </div>
+  </div>
+</header>
+
+<main class="dash" style="max-width: 620px;">
+  <a href="assignments.html" class="back-link">← Back to assignments</a>
+
+  <div class="dash-header">
+    <div>
+      <p class="eyebrow" id="submitAssignmentMeta">Submit your work</p>
+      <h1 id="submitAssignmentTitle">Loading…</h1>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <form id="submitAssignmentForm">
+      <label class="field" style="margin-bottom: 16px;">
+        <span>Your file</span>
+        <div class="file-drop" id="fileDrop">
+          <div class="file-drop-text">Click to choose a file to upload</div>
+          <input type="file" id="fileInput" />
+        </div>
+      </label>
+      <label class="field" style="margin-bottom: 16px;">
+        <span>Comments (optional)</span>
+        <textarea id="commentInput" rows="4" placeholder="Anything you'd like your teacher to know about this submission..."></textarea>
+      </label>
+      <p class="error" id="submitError"></p>
+      <button type="submit" class="btn-primary">Submit assignment</button>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark small">A</span>
+      <span class="brand-name">Assignment Portal</span>
+    </div>
+    <p class="footer-text">Built for teachers and students to track homework, deadlines, and feedback in one place.</p>
+    <p class="footer-copy">© 2026 Assignment Portal. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
