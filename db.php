@@ -1,51 +1,118 @@
 <?php
-/**
- * db.php — shared database connection.
- * Update DB_USER / DB_PASS below to match your MySQL setup
- * (defaults match a typical fresh XAMPP/WAMP install: user
- * "root" with no password).
- */
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'assignment_db');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+/*
+|--------------------------------------------------------------------------
+| Database Connection
+|--------------------------------------------------------------------------
+| Render provides PostgreSQL connection details through DATABASE_URL.
+| The application uses PDO so the rest of the PHP files can continue
+| using the existing $pdo variable.
+|--------------------------------------------------------------------------
+*/
 
 try {
-    $pdo = new PDO(
-        "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4",
-        DB_USER,
-        DB_PASS,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        ]
-    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Render PostgreSQL
+    |--------------------------------------------------------------------------
+    */
+
+    if (!empty(getenv('DATABASE_URL'))) {
+
+        $databaseUrl = getenv('DATABASE_URL');
+
+        $url = parse_url($databaseUrl);
+
+        if ($url === false || empty($url['host'])) {
+            throw new Exception('Invalid DATABASE_URL.');
+        }
+
+        $host = $url['host'];
+        $port = $url['port'] ?? 5432;
+        $dbname = isset($url['path'])
+            ? ltrim($url['path'], '/')
+            : '';
+
+        $username = $url['user'] ?? '';
+        $password = $url['pass'] ?? '';
+
+        /*
+         * PostgreSQL PDO connection.
+         * Render PostgreSQL requires SSL.
+         */
+        $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};sslmode=require";
+
+        $pdo = new PDO(
+            $dsn,
+            urldecode($username),
+            urldecode($password),
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false
+            ]
+        );
+
+    } else {
+
+        /*
+        |--------------------------------------------------------------------------
+        | Local / fallback database
+        |--------------------------------------------------------------------------
+        |
+        | These values can be supplied through environment variables.
+        | Do NOT put production passwords directly in this file.
+        |
+        */
+
+        $dbHost = getenv('DB_HOST') ?: 'localhost';
+        $dbName = getenv('DB_NAME') ?: 'assignment_portal';
+        $dbUser = getenv('DB_USER') ?: 'root';
+        $dbPass = getenv('DB_PASS') ?: '';
+
+        $dsn = "mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4";
+
+        $pdo = new PDO(
+            $dsn,
+            $dbUser,
+            $dbPass,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false
+            ]
+        );
+    }
+
 } catch (PDOException $e) {
-    http_response_code(500);
-    header('Content-Type: application/json');
-    echo json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]);
-    exit;
+
+    /*
+     * Don't expose database credentials or connection details
+     * to users in production.
+     */
+    error_log('Database connection failed: ' . $e->getMessage());
+
+    die('Database connection failed.');
+
+} catch (Exception $e) {
+
+    error_log('Database configuration error: ' . $e->getMessage());
+
+    die('Database configuration error.');
+
 }
 
-// Every request that touches the DB also needs the session
-// (for auth), so start it here in one place.
-//
-// FIX: the login->dashboard "flicker back to login" glitch was caused by
-// the session cookie not reliably surviving the redirect straight after
-// login. PHP's default cookie params can end up with no explicit path
-// and an implicit SameSite value that some browsers refuse to attach on
-// the very next request, so the auth check on dashboard.html would
-// intermittently fail even though login had just succeeded. Setting the
-// params explicitly, once, before the session starts fixes that.
+
+/*
+|--------------------------------------------------------------------------
+| Start session safely
+|--------------------------------------------------------------------------
+*/
+
 if (session_status() === PHP_SESSION_NONE) {
-    session_set_cookie_params([
-        'lifetime' => 60 * 60 * 24 * 7, // 7 days
-        'path' => '/',
-        'domain' => '',
-        'secure' => isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
-        'httponly' => true,
-        'samesite' => 'Lax',
-    ]);
     session_start();
 }
